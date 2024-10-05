@@ -1,7 +1,13 @@
 # ImageProcessing
 Using C++ classes to build a basic image processing app
 
-TO RUN THE APP, you should download the repository and run the main file. The brightness alteration and gamma correction folders contain examples of transformations.
+TO RUN THE APP, you should download the repository and run the main file from the Size directory. The brightness alteration and gamma correction folders contain examples of transformations.
+In the main file, you should first decomment the lines of code commented with //1 , and then run.
+You can then modify the values of parameters a and b and run again.
+Everytime you run and it works, the saved output pgm image can be converted in a jpg/png file (maybe using an online converter). (for you to actually see the transformations)
+Similarly, for the gamma transformation, you should decomment the lines of code commented with //2 , and then run.
+You can then modify the values of parameters y and run again.
+The convolution class is not yet ready, so it is not called in the main file.
 
 ![C1](https://github.com/DragosTrandafir/ImageProcessing/assets/62999548/53cf6c49-dc1c-420b-b1d9-289b29fef9e0)
 ![C2](https://github.com/DragosTrandafir/ImageProcessing/assets/62999548/8f69c648-2b08-4c3b-8241-804174dc08bb)
