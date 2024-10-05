@@ -13,36 +13,23 @@ int main() {
         return 1;
     }
 
-    Br_Ctr brightnessContrast;
-    //Gamma gammaCorrection;
-    //Convolution convolution;
+    //Br_Ctr brightnessContrast; //1
+    //Gamma gammaCorrection; //2
+   
 
-    float a = 2; 
-    float b = 0; 
-    brightnessContrast = Br_Ctr(a, b);
+    //float a = 2; //1
+    //float b = 0;  //1
+   // brightnessContrast = Br_Ctr(a, b);  //1
 
-    //float y = 1.4;
-    //gammaCorrection = Gamma(y);
+    //float y = 1.4; //2
+    //gammaCorrection = Gamma(y); //2
 
-    
-    /*
-    unsigned int** pkernel = new unsigned int* [3]; 
-    for (int i = 0; i < 3; ++i) {
-        pkernel[i] = new unsigned int[3];
-    }
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j)
-            pkernel[i][j] = 1;
-    }*/
-            
-    //convolution = Convolution(pkernel,3, 3);
     
 
     Image outputImage(inputImage.width(), inputImage.height());
 
-    brightnessContrast.process(inputImage, outputImage);
-    //gammaCorrection.process(inputImage, outputImage);
-    //convolution.process(inputImage, outputImage);
+    //brightnessContrast.process(inputImage, outputImage);  //1
+    //gammaCorrection.process(inputImage, outputImage);//2
 
     std::string outputPath = "output_image.pgm";
     if (!outputImage.save(outputPath)) {
@@ -52,11 +39,5 @@ int main() {
 
     std::cout << "Operation applied successfully!" << std::endl;
 
-    /*
-    for (int i = 0; i < 3; ++i) {
-        delete[] pkernel[i];
-    }
-    delete[] pkernel;
-    */
     return 0;
 }
