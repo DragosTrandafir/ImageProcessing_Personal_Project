@@ -2,8 +2,9 @@
 Using C++ classes to build a basic image processing app
 
 TO RUN THE APP, you should download the repository and run the main.cpp file from the Size directory. The brightness alteration and gamma correction folders contain examples of transformations.
+Take into consideration that the image paths should be modified considering where you have your pgm images on your local machine.
 The main file offers a UI application through which the user can try different image transformations with different parameters.
-To actually see the .pgm images, i recommend you use an online pgm to jpg converter.
+To actually see the .pgm images, I recommend you use an online pgm to jpg converter.
 All the other details regarding the structure of the project are included in the images below.
 
 
