@@ -1,6 +1,7 @@
 #include<iostream>
 #include"Image.h"
 #include <functional>
+#include<vector>
 using namespace std;
 #pragma once
 class ImageProcessing
@@ -39,14 +40,14 @@ private:
 class Convolution : public ImageProcessing {
 public:
 	Convolution();
-	Convolution(unsigned int** pkernel, unsigned int pw, unsigned int ph);
+	Convolution(std::vector<std::vector<int>> pkernel, unsigned int pw, unsigned int ph);
 	~Convolution();
 	unsigned int width() const;
 	unsigned int height() const;
 
 	void process(const Image& src, Image& dst) override;
 private:
-	unsigned int** kernel;
+	std::vector<std::vector<int>> kernel;
 	unsigned int w;
 	unsigned int h;
 };

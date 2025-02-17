@@ -18,7 +18,7 @@ void Br_Ctr::process(const Image& src, Image& dst) {
             else if(a * src.at(i, j) + b > 255)
                 dst.at(i, j) = 255;
             else
-                dst.at(i, j) = static_cast<unsigned char>(a * src.at(i, j) + b);
+                dst.at(i, j) = (a * src.at(i, j) + b);
 }
 
 //gamma correction
@@ -38,36 +38,32 @@ void Gamma::process(const Image& src, Image& dst) {
             else if(std::pow(src.at(i, j), y) >255)
                 dst.at(i, j) = 255;
             else
-                dst.at(i, j) = static_cast<unsigned char>(std::pow(src.at(i, j), y));
+                dst.at(i, j) = (std::pow(src.at(i, j), y));
 }
 
 //image convolution
 Convolution::Convolution() {
     this->w = 0;
     this->h = 0;
-    this->kernel = nullptr;
+    this->kernel = {
+    {0, 0, 0},
+    {0, 1, 0},
+    {0, 0, 0}
+    };
 }
 Convolution::~Convolution() {
-    if (this->kernel) {
-        delete[] this->kernel;
-    }
-    this->kernel = nullptr;
+    this->kernel = {
+    {0, 0, 0},
+    {0, 1, 0},
+    {0, 0, 0}
+    };
     this->w = 0;
     this->h = 0;
 }
 
 
-Convolution::Convolution(unsigned int** pkernel, unsigned int pw, unsigned int ph) :w{ pw }, h{ ph } {
-    kernel = new unsigned int* [h];
-    for (unsigned int i = 0; i < h; ++i) {
-        kernel[i] = new unsigned int[w];
-    }
-    /*
-    for (unsigned int i = 0; i < h; ++i) {
-        for (unsigned int j = 0; j < w; ++j) {
-            kernel[i][j] = pkernel[i][j];
-        }
-    }*/
+Convolution::Convolution(std::vector<std::vector<int>> pkernel, unsigned int pw, unsigned int ph) :w{ pw }, h{ ph } {
+    this->kernel = pkernel;
 }
 
 unsigned int Convolution::width() const {
@@ -80,44 +76,24 @@ unsigned int Convolution::height() const {
 
 
 void Convolution::process(const Image& src, Image& dst) {
-    // Ensure the kernel is not null and has a valid size
-    if (kernel == nullptr || w == 0 || h == 0 || w % 2 == 0 || h % 2 == 0) {
-        std::cerr << "Invalid kernel or kernel size." << std::endl;
-        return;
-    }
+    int k1 = kernel.size() / 2; //number of kernl rows
+    int k2 = kernel[0].size() / 2; //numbr of kernel columns
 
-    // calculate the half-width and half-height of the kernel
-    int halfWidth = w / 2;
-    int halfHeight = h / 2;
-
-    // apply convolution to each pixel in the src image
-    for (unsigned int y = 0; y < src.height(); ++y) {
-        for (unsigned int x = 0; x < src.width(); ++x) {
-            float sum = 0.0f;
-            // iterate over the kernel
-            for (int ky = -halfHeight; ky <= halfHeight; ++ky) {
-                for (int kx = -halfWidth; kx <= halfWidth; ++kx) {
-                    // calculate the coordinates in the source image
-                    int srcX = x + kx;
-                    int srcY = y + ky;
-                    // check if the coordinates are within the bounds of the source image
-                    if (srcX >= 0 && srcX < static_cast<int>(src.width()) &&
-                        srcY >= 0 && srcY < static_cast<int>(src.height())) {
-                        // calculate the indices for the kernel matrix
-                        int kernelX = kx + halfWidth;
-                        int kernelY = ky + halfHeight;
-                        // multiply corresponding pixel value with kernel value
-                        sum += src.at(srcY, srcX) * kernel[kernelY][kernelX];
-                    }
+    for (unsigned int x = 0; x < src.height(); x++) {
+        for (unsigned int y = 0; y < src.width(); y++)
+        {
+            int sumPixel = 0;
+            for (int u = 0; u < kernel.size(); u++) {
+                for (int v = 0; v < kernel[0].size(); v++)
+                {
+                    int imgX = x + u - k1;
+                    int imgY = y + v - k2;
+                    if (imgX >= 0 && imgX < src.height() && imgY >= 0 && imgY < src.width())//check for negative indexes or out of bounds indexes
+                        sumPixel += kernel[u][v] * src.at(imgX, imgY);
+                    
                 }
             }
-            // valid range [0, 255]
-            if (sum < 0)
-                dst.at(y, x) = 0;
-            else if (sum > 255)
-                dst.at(y, x) = 255;
-            else
-                dst.at(y, x) = static_cast<unsigned char>(sum);
-        }
-    }
+                dst.at(x, y) = sumPixel;
+        }}
+    
 }

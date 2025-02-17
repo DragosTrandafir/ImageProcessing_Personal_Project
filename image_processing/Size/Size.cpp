@@ -2,28 +2,28 @@
 #include<iostream>
 
 Size::Size() {
-	this->h = 0;
-	this->w = 0;
+	this->height = 0;
+	this->width = 0;
 }
-Size::Size(unsigned int pw, unsigned int ph) : w{ pw }, h{ ph } {
+Size::Size(unsigned int pwidth, unsigned int pheight) : width{ pwidth }, height{ pheight } {
 
 }
 
 unsigned int Size::get_width() const {
-	return w;
+	return this->width;
 }
 unsigned int Size::get_height() const {
-	return h;
+	return height;
 }
 unsigned int Size::get_area() const {
-	return (h * w);
+	return (height * width);
 }
 
-void Size::set_width(unsigned int w) {
-	this->w = w;
+void Size::set_width(unsigned int width) {
+	this->width = width;
 }
-void Size::set_height(unsigned int h) {
-	this->h = h;
+void Size::set_height(unsigned int height) {
+	this->height = height;
 }
 
 bool operator==(const Size& s1, const Size& s2) {

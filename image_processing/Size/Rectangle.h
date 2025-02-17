@@ -6,7 +6,7 @@ class Rectangle
 {
 public:
 	Rectangle();
-	Rectangle(int px, int py, unsigned int pw, unsigned ph);
+	Rectangle(int px, int py, unsigned int pw, unsigned int ph);
 
 	int get_x() const;
 	int get_y() const;

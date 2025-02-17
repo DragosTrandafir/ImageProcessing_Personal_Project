@@ -10,7 +10,7 @@ Rectangle::Rectangle() {
 	this->w = 0;
 	this->h = 0;
 }
-Rectangle::Rectangle(int px, int py, unsigned int pw, unsigned ph) : x{ px }, y{ py }, w{ pw }, h{ ph } {
+Rectangle::Rectangle(int px, int py, unsigned int pw, unsigned int ph) : x{ px }, y{ py }, w{ pw }, h{ ph } {
 
 }
 
@@ -45,7 +45,7 @@ Rectangle& Rectangle::operator+(const Point& p) {
 	this->y += p.get_y();
 	return *this;
 }
-// Intersection operator
+//intersection operator
 Rectangle operator&(const Rectangle& r1, const Rectangle& r2) {
    
     int x1 = r1.get_x() + r1.get_w(); // x-coordinate of the bottom-right vertex of the first rectangle
