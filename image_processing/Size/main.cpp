@@ -42,6 +42,8 @@ int main() {
             
            
             brightnessContrast.process(inputImage, outputImage);
+
+            inputImage = outputImage;
         }
         else if (option == 2) {
             float y;
@@ -53,6 +55,8 @@ int main() {
 
             
             gammaCorrection.process(inputImage, outputImage);
+
+            inputImage = outputImage;
         }
         else if (option == 3) {
             int rows, cols;
@@ -66,8 +70,8 @@ int main() {
                 for (int j = 0; j < cols; j++) 
                     std::cin >> kernel[i][j];
 
-             unsigned int w = 49;
-             unsigned int h = 39;
+             unsigned int w = cols;
+             unsigned int h = rows;
 
 
             Convolution convolution;
@@ -75,6 +79,8 @@ int main() {
 
             
             convolution.process(inputImage, outputImage);
+
+            inputImage = outputImage;
 
         }
         else if (option==4)
